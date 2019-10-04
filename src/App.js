@@ -13,7 +13,7 @@ function App() {
 
         setNumberOfTimesLoaded(numberOfTimesLoaded + 1);
         const imageName = imageNames[numberOfTimesLoaded % imageNames.length];
-        const imagePath = `img/${imageName}`;
+        const imagePath = `https://gruximillian.github.io/article-image-loader-react/img/${imageName}`;
 
         fetch(imagePath)
             .then(response => {
