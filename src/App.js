@@ -18,7 +18,8 @@ function App() {
         fetch(imagePath)
             .then(response => {
                 if (response.ok) {
-                    setImagePath(`img/${imageName}`);
+                    console.log('ok');
+                    setImagePath(imagePath);
                 }
             })
             .catch(error => {
