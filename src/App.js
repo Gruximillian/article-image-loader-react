@@ -6,12 +6,31 @@ const imageNames = ['galaxies.png', 'bridge.jpg', 'stars.jpg', 'sombrero.jpg'];
 function App() {
     const [numberOfTimesLoaded, setNumberOfTimesLoaded] = useState(0);
     const [imagePath, setImagePath] = useState(undefined);
+    const [loading, setLoading] = useState(false);
 
     function loadImage() {
+        setLoading(true);
+
         setNumberOfTimesLoaded(numberOfTimesLoaded + 1);
         const imageName = imageNames[numberOfTimesLoaded % imageNames.length];
-        setImagePath(`img/${imageName}`);
+        const imagePath = `img/${imageName}`;
+
+        fetch(imagePath)
+            .then(response => {
+                if (response.ok) {
+                    setImagePath(`img/${imageName}`);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
+
+    const loadingClass = loading ? 'loading' : '';
 
     return (
         <div>
@@ -24,7 +43,7 @@ function App() {
                 </button>
             </div>
 
-            <div className="container image-container-with-loader">
+            <div className={`container image-container-with-loader ${loadingClass}`}>
                 {
                     imagePath &&
                     <img src={imagePath} alt="image placeholder"/>
